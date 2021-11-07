@@ -2,10 +2,10 @@
   "compilerOptions": {
     "target": "ES6",
     "types": ["node"],
+    "outDir": "./dist",
+    "moduleResolution": "node"
   },
   "exclude": ["node_modules"],
   
-  "include": ["src/**/*.ts"],
-
-  "references": [{"path": "../types"}]
+  "include": ["./common/**/*.ts", "./handlers/**/*.ts"],
 }

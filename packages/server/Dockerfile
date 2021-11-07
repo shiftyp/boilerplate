@@ -1,20 +1,24 @@
-FROM node:16
+FROM yarnpkg/node-yarn as installer
 
-ENV handler=''
-# Create app directory
 WORKDIR /usr/src/app
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY package*.json ./
+COPY  . .
 
-RUN npm install
-# If you are building your code for production
-# RUN npm ci --only=production
+RUN yarn
 
-# Bundle app source
-COPY . .
+FROM yarnpkg/node-yarn as builder
 
-EXPOSE 8080
-CMD [ "node", "dist/handlers/${handler}.ts" ]
+COPY --from=installer /usr/src/app /usr/src/app
+RUN cp -Lf /usr/src/app/node_modules/* /usr/src/app/server/node_modules/*
+
+WORKDIR /usr/src/app
+
+RUN yarn build
+
+FROM node:16 as runner
+
+COPY --from=builder /usr/src/app/server /usr/src/app
+
+ENV handler ''
+
+CMD ["node", "dist/handler/${handler}.js"]

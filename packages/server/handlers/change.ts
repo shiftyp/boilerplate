@@ -1,7 +1,7 @@
 import { Server } from '../common/server'
-import { Database, DataCollection } from '../common/data'
-import bodyParser = require('body-parser')
-import { Data } from '@app/types/data'
+import { DataCollection } from '../common/data'
+import * as bodyParser from 'body-parser'
+import { Data } from '@app/types'
 
 const handler = async (res, resp) => {
   const collection = await DataCollection;

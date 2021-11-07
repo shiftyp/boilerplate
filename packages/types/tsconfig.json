@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "target": "ES6",
-    "composite": true
+    "skipLibCheck": true
   },
   "exclude": ["node_modules"],
   
-  "include": ["./data.ts"],
+  "include": ["index.ts"],
 }
