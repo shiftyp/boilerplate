@@ -1,11 +1,8 @@
 {
   "name": "app",
   "private": true,
-  "scripts": {
-    "postinstall": "./scripts/setup.sh"
-  },
   "workspaces": {
     "packages": ["packages/*"],
-    "nohoist": ["@types/*"]
+    "nohoist": ["@types/*", "typescript"]
   }
 }

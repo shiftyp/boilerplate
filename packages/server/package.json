@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "build": "tsc",
-    "watch": "tsc --watch",
-    "pack": "./scripts/pack.sh"
+    "watch": "tsc --watch"
   },
   "dependencies": {
     "@app/types": "1.0.0",

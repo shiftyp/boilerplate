@@ -9,9 +9,10 @@ RUN yarn
 FROM yarnpkg/node-yarn as builder
 
 COPY --from=installer /usr/src/app /usr/src/app
-RUN cp -Lf /usr/src/app/node_modules/* /usr/src/app/server/node_modules/*
+RUN cp -frT /usr/src/app/node_modules/** /usr/src/app/packages/server/node_modules
+RUN ls /usr/src/app/packages/server/node_modules/.bin
 
-WORKDIR /usr/src/app
+WORKDIR /usr/src/app/packages/server
 
 RUN yarn build
 
