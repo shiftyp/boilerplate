@@ -8,11 +8,11 @@ jobs:
   install-yarn:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node
+      - uses: actions/setup-node@v2
         with:
           node-version: 12
       - run: npm i yarn
-      
+
   build-server:
     needs: install-yarn
     runs-on: ubuntu-latest
