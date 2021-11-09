@@ -25,7 +25,7 @@ jobs:
       - run: yarn workspace @app/types build
 
   publish-gpr-server:
-    needs: [build-server install-yarn]
+    needs: [build-server, install-yarn]
     runs-on: ubuntu-latest
     permissions:
       packages: write
