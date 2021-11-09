@@ -1,24 +1,27 @@
-FROM yarnpkg/node-yarn as installer
+FROM node:16 as installer
 
 WORKDIR /usr/src/app
+
+RUN npm i yarn
 
 COPY  . .
 
 RUN yarn
 
-FROM yarnpkg/node-yarn as builder
+FROM node:16 as builder
 
-COPY --from=installer /usr/src/app /usr/src/app
-RUN cp -frT /usr/src/app/node_modules/** /usr/src/app/packages/server/node_modules
-RUN ls /usr/src/app/packages/server/node_modules/.bin
+WORKDIR /usr/src/app
 
-WORKDIR /usr/src/app/packages/server
+COPY --from=installer /usr/src/app .
+RUN tar cvfh - ./node_modules/* packages/server/node_modules/* | (cd packages/server/node_modules; tar xvf -)
 
-RUN yarn build
+RUN yarn workspace @app/server build
 
 FROM node:16 as runner
 
-COPY --from=builder /usr/src/app/server /usr/src/app
+WORKDIR /usr/src/app
+
+COPY --from=builder /usr/src/app/packages/server .
 
 ENV handler ''
 
